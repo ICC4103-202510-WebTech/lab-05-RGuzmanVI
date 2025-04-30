@@ -18,3 +18,4 @@ class Chat < ApplicationRecord
         errors.add(:receiver_id, "debe ser diferente del remitente")
       end
   end
+end
