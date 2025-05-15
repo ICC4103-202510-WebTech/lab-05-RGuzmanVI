@@ -6,8 +6,9 @@
   <thead>
     <tr>
       <th>Chat ID</th>
-      <th>User ID</th>
-      <th>Body</th>
+      <th>Sender</th>
+      <th>Receiver</th>
+      <th>Message</th>
       <th>Created At</th>
       <th>Updated At</th>
       <th>Actions</th>
@@ -17,11 +18,13 @@
     <% @messages.each do |message| %>
       <tr>
         <td><%= message.chat_id %></td>
-        <td><%= message.user_id %></td>
+        <td><%= message.sender.full_name %></td>
+        <td><%= message.receiver.full_name %></td>
         <td><%= message.body %></td>
         <td><%= message.created_at %></td>
         <td><%= message.updated_at %></td>
         <td><%= link_to 'Show', message_path(message) %></td>
+        <td><%= link_to "Edit", edit_message_path(message) %></td>
       </tr>
     <% end %>
   </tbody>

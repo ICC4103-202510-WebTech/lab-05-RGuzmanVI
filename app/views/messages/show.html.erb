@@ -1,7 +1,8 @@
 <h1>Message Details</h1>
 
 <p><strong>Chat ID:</strong> <%= @message.chat_id %></p>
-<p><strong>User ID:</strong> <%= @message.user_id %></p>
+<p><strong>User ID:</strong> <%= @message.sender.full_name %></p>
+<p><strong>User ID:</strong> <%= @message.receiver.full_name %></p>
 <p><strong>Body:</strong> <%= @message.body %></p>
 <p><strong>Created At:</strong> <%= @message.created_at %></p>
 <p><strong>Updated At:</strong> <%= @message.updated_at %></p>
@@ -9,3 +10,10 @@
 <%= link_to 'Back to Messages', messages_path %>
 <%= link_to 'Back to list', users_path %> |
 <%= link_to 'New user', new_user_path %>
+
+<%= link_to "Edit", edit_message_path(@message) %>
+
+<p><strong>From:</strong> <%= @message.sender.email %></p>
+<p><strong>To:</strong> <%= @message.receiver.email %></p>
+<p><strong>Message:</strong> <%= @message.body %></p>
+

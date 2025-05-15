@@ -12,12 +12,12 @@
 
   <div>
     <%= form.label :sender_id %>
-    <%= form.collection_select :sender_id, @users, :id, :email, prompt: "Select Sender" %>
+    <%= form.collection_select :sender_id, @users, :id, :full_name, prompt: "Select Sender" %>
   </div>
 
   <div>
     <%= form.label :receiver_id %>
-    <%= form.collection_select :receiver_id, @users, :id, :email, prompt: "Select Receiver" %>
+    <%= form.collection_select :receiver_id, @users, :id, :full_name, prompt: "Select Receiver" %>
   </div>
 
   <div>

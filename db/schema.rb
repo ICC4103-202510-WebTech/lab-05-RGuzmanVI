@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_09_194148) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_15_004538) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -22,11 +22,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_09_194148) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.integer "chat_id"
-    t.integer "user_id"
-    t.text "body"
+    t.integer "chat_id", null: false
+    t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "sender_id"
+    t.bigint "receiver_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -36,4 +37,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_09_194148) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "chats", "users", column: "receiver_id"
+  add_foreign_key "chats", "users", column: "sender_id"
+  add_foreign_key "messages", "chats"
 end

@@ -8,3 +8,25 @@
 <%= link_to 'Back to Users', users_path %>
 <%= link_to 'Back to list', users_path %> |
 <%= link_to 'New user', new_user_path %>
+
+<h1><%= @user.full_name %></h1>
+
+<h2>Chats</h2>
+<ul>
+  <% @user.sent_chats.each do |chat| %>
+    <li>Chat con <%= chat.receiver.full_name %></li>
+  <% end %>
+
+  <% @user.received_chats.each do |chat| %>
+    <li>Chat con <%= chat.sender.full_name %></li>
+  <% end %>
+</ul>
+
+<h2>Mensajes enviados</h2>
+<ul>
+  <% @user.messages.each do |msg| %>
+    <li><%= msg.body %></li>
+  <% end %>
+</ul>
+
+<%= link_to "Edit", edit_user_path(@user) %>
