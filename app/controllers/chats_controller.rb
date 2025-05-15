@@ -11,6 +11,7 @@ class ChatsController < ApplicationController
 
   def new
     @chat = Chat.new
+    @users = User.all   
   end
 
   def create
