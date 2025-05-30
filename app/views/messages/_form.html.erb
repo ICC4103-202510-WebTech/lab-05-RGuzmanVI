@@ -1,34 +1,44 @@
-<%= form_with(model: @message, local: true) do |form| %>
-  <% if @message.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@message.errors.count, "error") %> errors:</h2>
-      <ul>
-        <% @message.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h2>Message</h2>
     </div>
-  <% end %>
+    <div class="card-body">
+      <%= form_with(model: @message, local: true) do |form| %>
+        <% if @message.errors.any? %>
+          <div class="alert alert-danger">
+            <h4><%= pluralize(@message.errors.count, "error") %> prevented this message from being saved:</h4>
+            <ul>
+              <% @message.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-  <div>
-    <%= form.label :sender_id %>
-    <%= form.collection_select :sender_id, @users, :id, :full_name, prompt: "Select Sender" %>
+        <div class="mb-3">
+          <label class="form-label"><strong>Sender:</strong></label>
+          <p class="form-control-plaintext"><%= current_user.full_name %></p>
+          <%= form.hidden_field :sender_id, value: current_user.id %>
+        </div>
+
+        <div class="mb-3">
+          <p><strong>Receiver:</strong> <%= @message.receiver&.full_name %></p>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :chat_id, class: "form-label" %>
+          <%= form.collection_select :chat_id, @chats, :id, :id, { prompt: "Select Chat" }, class: "form-select" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :body, class: "form-label" %>
+          <%= form.text_area :body, class: "form-control", rows: 4 %>
+        </div>
+
+        <%= form.submit "Send Message", class: "btn btn-primary" %>
+        <%= link_to "Back to Messages", messages_path, class: "btn btn-secondary" %>
+      <% end %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :receiver_id %>
-    <%= form.collection_select :receiver_id, @users, :id, :full_name, prompt: "Select Receiver" %>
-  </div>
-
-  <div>
-    <%= form.label :chat_id %>
-    <%= form.collection_select :chat_id, @chats, :id, :id, prompt: "Select Chat" %>
-  </div>
-
-  <div>
-    <%= form.label :body %>
-    <%= form.text_area :body %>
-  </div>
-
-  <%= form.submit "Send Message" %>
-<% end %>
+</div>

@@ -1,18 +1,18 @@
-<h1>Message Details</h1>
-
-<p><strong>Chat ID:</strong> <%= @message.chat_id %></p>
-<p><strong>User ID:</strong> <%= @message.sender.full_name %></p>
-<p><strong>User ID:</strong> <%= @message.receiver.full_name %></p>
-<p><strong>Body:</strong> <%= @message.body %></p>
-<p><strong>Created At:</strong> <%= @message.created_at %></p>
-<p><strong>Updated At:</strong> <%= @message.updated_at %></p>
-
-<%= link_to 'Back to Messages', messages_path %>
-<%= link_to 'Back to list', users_path %> |
-
-<%= link_to "Edit", edit_message_path(@message) %>
-
-<p><strong>From:</strong> <%= @message.sender.email %></p>
-<p><strong>To:</strong> <%= @message.receiver.email %></p>
-<p><strong>Message:</strong> <%= @message.body %></p>
-
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h2>Message Details</h2>
+    </div>
+    <div class="card-body">
+      <p><strong>Chat ID:</strong> <%= @message.chat_id %></p>
+      <p><strong>Sender:</strong> <%= @message.sender.full_name %></p>
+      <p><strong>Receiver:</strong> <%= @message.receiver.full_name %></p>
+      <p><strong>Message:</strong> <%= @message.body %></p>
+      <p><strong>Created At:</strong> <%= @message.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+      <p><strong>Updated At:</strong> <%= @message.updated_at.strftime("%Y-%m-%d %H:%M") %></p>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+      <%= link_to 'Back to Messages', messages_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>

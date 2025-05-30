@@ -1,5 +1,7 @@
 class ChatsController < ApplicationController
   before_action :set_chat, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  load_and_authorize_resource
 
   def index
     @chats = Chat.all
@@ -16,8 +18,9 @@ class ChatsController < ApplicationController
 
   def create
     @chat = Chat.new(chat_params)
+    @chat.sender = current_user
     if @chat.save
-      redirect_to @chat, notice: "Chat was successfully created."
+      redirect_to chats_path, notice: "Chat was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,7 +32,7 @@ class ChatsController < ApplicationController
 
   def update
     if @chat.update(chat_params)
-      redirect_to @chat, notice: "Chat was successfully updated."
+      redirect_to chats_path, notice: "Chat was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -47,6 +50,6 @@ class ChatsController < ApplicationController
   end
 
   def chat_params
-    params.require(:chat).permit(:sender_id, :receiver_id)
+    params.require(:chat).permit(:receiver_id)
   end
 end

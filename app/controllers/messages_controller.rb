@@ -1,4 +1,8 @@
 class MessagesController < ApplicationController
+
+    before_action :authenticate_user!
+    load_and_authorize_resource
+
     def index
       @messages = Message.all
     end
@@ -24,7 +28,7 @@ class MessagesController < ApplicationController
       @users = User.all
       @chats = Chat.all
       if @message.update(message_params)
-        redirect_to @message, notice: "Message updated successfully"
+        redirect_to messages_path, notice: "Message updated successfully"
       else
         render :edit
       end
@@ -32,8 +36,9 @@ class MessagesController < ApplicationController
 
     def create
       @message = Message.new(message_params)
+      @message.sender = current_user
       if @message.save
-        redirect_to root_path, notice: "Message sent successfully."
+        redirect_to messages_path, notice: "Message sent successfully."
       else
         @users = User.all
         @chats = Chat.all

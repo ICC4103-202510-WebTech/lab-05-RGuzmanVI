@@ -1,34 +1,52 @@
-<%= form_with(model: @message, local: true) do |form| %>
-  <% if @message.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@message.errors.count, "error") %> errors:</h2>
-      <ul>
-        <% @message.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="mb-4 text-center">New Message</h2>
+
+      <%= form_with(model: @message, local: true, html: { class: "needs-validation" }) do |form| %>
+        <% if @message.errors.any? %>
+          <div class="alert alert-danger">
+            <h4 class="alert-heading">
+              <%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:
+            </h4>
+            <ul>
+              <% @message.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+
+        <!-- Sender Info -->
+        <div class="mb-3">
+          <label class="form-label"><strong>Sender:</strong></label>
+          <p class="form-control-plaintext"><%= current_user.full_name %></p>
+        </div>
+
+        <!-- Receiver Select -->
+        <div class="mb-3">
+          <%= form.label :receiver_id, "Receiver", class: "form-label" %>
+          <%= form.collection_select :receiver_id, @users, :id, :email, { prompt: "Select Receiver" }, class: "form-select" %>
+        </div>
+
+        <!-- Chat Select -->
+        <div class="mb-3">
+          <%= form.label :chat_id, "Chat", class: "form-label" %>
+          <%= form.collection_select :chat_id, @chats, :id, :id, { prompt: "Select Chat" }, class: "form-select" %>
+        </div>
+
+        <!-- Message Body -->
+        <div class="mb-3">
+          <%= form.label :body, "Message", class: "form-label" %>
+          <%= form.text_area :body, class: "form-control", rows: 3 %>
+        </div>
+
+        <!-- Submit + Back -->
+        <div class="d-flex justify-content-between">
+          <%= link_to "Back", messages_path, class: "btn btn-secondary" %>
+          <%= form.submit "Send Message", class: "btn btn-primary" %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :sender_id %>
-    <%= form.collection_select :sender_id, @users, :id, :email, prompt: "Select Sender" %>
   </div>
-
-  <div>
-    <%= form.label :receiver_id %>
-    <%= form.collection_select :receiver_id, @users, :id, :email, prompt: "Select Receiver" %>
-  </div>
-
-  <div>
-    <%= form.label :chat_id %>
-    <%= form.collection_select :chat_id, @chats, :id, :id, prompt: "Select Chat" %>
-  </div>
-
-  <div>
-    <%= form.label :body %>
-    <%= form.text_area :body %>
-  </div>
-
-  <%= form.submit "Send Message" %>
-<% end %>
+</div>

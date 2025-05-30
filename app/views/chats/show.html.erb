@@ -1,11 +1,14 @@
-<h1>Chat Details</h1>
+<div class="container mt-5" style="max-width: 600px;">
+  <h1 class="mb-4 text-center">Chat Details</h1>
 
-<p><strong>Sender ID:</strong> <%= @chat.sender_id %></p>
-<p><strong>Receiver ID:</strong> <%= @chat.receiver_id %></p>
-<p><strong>Created At:</strong> <%= @chat.created_at %></p>
-<p><strong>Updated At:</strong> <%= @chat.updated_at %></p>
+  <div class="card p-4 mb-4">
+    <p><strong>Sender ID:</strong> <%= @chat.sender_id %></p>
+    <p><strong>Receiver ID:</strong> <%= @chat.receiver_id %></p>
+    <p><strong>Created At:</strong> <%= @chat.created_at.strftime("%B %d, %Y %H:%M") %></p>
+    <p><strong>Updated At:</strong> <%= @chat.updated_at.strftime("%B %d, %Y %H:%M") %></p>
+  </div>
 
-<%= link_to 'Back to Chats', chats_path %>
-<%= link_to 'Back to list', users_path %> |
-
-<%= link_to "Edit", edit_chat_path(@chat) %>
+  <div class="text-center">
+    <%= link_to 'Back to Chats', chats_path, class: "btn btn-primary" %>
+  </div>
+</div>

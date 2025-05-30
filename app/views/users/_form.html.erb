@@ -1,31 +1,35 @@
-<%= form_with model: user, local: true do |f| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-      <ul>
-        <% user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+<div class="container mt-5" style="max-width: 600px;">
+  <h2 class="text-center mb-4">User Form</h2>
+
+  <%= form_with model: user, local: true, class: "needs-validation" do |f| %>
+    <% if user.errors.any? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h4>
+        <ul>
+          <% user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <%= f.label :first_name, class: "form-label" %>
+      <%= f.text_field :first_name, class: "form-control", required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :last_name, class: "form-label" %>
+      <%= f.text_field :last_name, class: "form-control", required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :email, class: "form-label" %>
+      <%= f.email_field :email, class: "form-control", required: true %>
+    </div>
+
+    <div class="text-center">
+      <%= f.submit "Save User", class: "btn btn-primary" %>
     </div>
   <% end %>
-
-  <div>
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-  </div>
-
-  <div>
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-
-  <div>
-    <%= f.label :email %><br>
-    <%= f.email_field :email %>
-  </div>
-
-  <div>
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
