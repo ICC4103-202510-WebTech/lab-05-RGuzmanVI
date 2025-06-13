@@ -33,3 +33,26 @@
     <%= link_to 'Add new chat', new_chat_path, class: "btn btn-primary" %>
   </div>
 </div>
+
+
+<div class="container mt-5">
+  <h1 class="mb-4 text-center">My Inbox</h1>
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Chat with</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @chats.each do |chat| %>
+          <tr>
+            <td><%= chat.other_participant(current_user).full_name %></td>
+            <td>
+              <%= link_to "View", chat_path(chat), class: "btn btn-primary btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>
